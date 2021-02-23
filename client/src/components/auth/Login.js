@@ -1,6 +1,10 @@
 import React, { Fragment, useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
+import PropTypes from "prop-types";
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   //inline style class
   const myclass = {
     margin: "15px 0px",
@@ -23,9 +27,14 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    console.log(formData);
+    login({ email, password });
+    // console.log(formData);
   };
+
+  // redirect to shop
+  if (isAuthenticated) {
+    return <Redirect to="/shop" />;
+  }
 
   return (
     <Fragment>
@@ -64,4 +73,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

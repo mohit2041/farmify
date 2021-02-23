@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   //inline style class
   const myclass = {
     margin: "15px 0px",
@@ -31,12 +33,17 @@ const Register = ({ setAlert }) => {
       setAlert("password didn't match", "danger");
       console.log("password didn't match");
     } else {
-      console.log(formData);
-      // register({ name, email, password });
+      // console.log(formData);
+      register({ name, email, password });
     }
   };
 
   const { name, email, password, password2 } = formData;
+
+  // redirect to shop
+  if (isAuthenticated) {
+    return <Redirect to="/shop" />;
+  }
 
   return (
     <Fragment>
@@ -100,6 +107,12 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert })(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
