@@ -11,6 +11,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link className="nav-link active" aria-current="page" to="/shop">
           <i className="fas fa-shopping-cart"></i> Shop
         </Link>{" "}
+        <Link className="nav-link active" aria-current="page" to="/profile">
+          <i className="fas fa-user"></i> Profile
+        </Link>{" "}
         <Link onClick={logout} className="nav-link active" to="/login">
           <i className="fas fa-sign-out-alt"> </i> Logout
         </Link>

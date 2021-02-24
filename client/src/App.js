@@ -6,6 +6,9 @@ import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Shop from "./components/shop/Shop";
+import Profile from "./components/profile/Profile";
+import PrivateRoute from "./components/routing/PrivateRoute";
 import Alert from "./components/layout/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
@@ -22,7 +25,7 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
-  });
+  }, []);
   return (
     <Provider store={store}>
       <Router>
@@ -34,6 +37,8 @@ const App = () => {
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <PrivateRoute exact path="/shop" component={Shop} />
+              <PrivateRoute exact path="/profile" component={Profile} />
             </Switch>
           </section>
         </Fragment>
