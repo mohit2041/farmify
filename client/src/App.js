@@ -9,6 +9,8 @@ import Register from "./components/auth/Register";
 import Shop from "./components/shop/Shop";
 import Profile from "./components/profile/Profile";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import CreateProfile from "./components/profile/CreateProfile";
+import EditProfile from "./components/profile/EditProfile";
 import Alert from "./components/layout/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
@@ -37,8 +39,18 @@ const App = () => {
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
-              <PrivateRoute exact path="/shop" component={Shop} />
               <PrivateRoute exact path="/profile" component={Profile} />
+              <PrivateRoute exact path="/shop" component={Shop} />
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
+              />
             </Switch>
           </section>
         </Fragment>

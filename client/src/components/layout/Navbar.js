@@ -60,12 +60,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 };
 
 Navbar.propTypes = {
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.object,
+  profile: PropTypes.object,
   logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
