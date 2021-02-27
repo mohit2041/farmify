@@ -6,7 +6,7 @@ import { logout } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   // for getting profile by id
-  let profileLink = user !== null ? `/profile/${user._id}` : "";
+  let profileLink = user !== null ? `/profile/${user.name}/${user._id}` : "";
 
   const authLinks = (
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
