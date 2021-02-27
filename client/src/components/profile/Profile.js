@@ -2,18 +2,19 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getCurrentProfile } from "../../actions/profile";
+import { getProfileById } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
-import ProfileItem from "./ProfileItem";
 
 const Profile = ({
   profile: { loading, profile },
   auth: { user },
-  getCurrentProfile,
+  getProfileById,
+  match,
 }) => {
   useEffect(() => {
-    getCurrentProfile();
-  }, []);
+    getProfileById(match.params.id);
+  }, [getProfileById, match.params.id]);
+
   return loading || user === null ? (
     <Spinner />
   ) : (
@@ -33,7 +34,23 @@ const Profile = ({
             alt="..."
           />
           {profile !== null ? (
-            <ProfileItem profile={profile} />
+            <div>
+              <div className="m-3">
+                <Link to="/edit-profile" className="btn btn-primary">
+                  Edit Profile
+                </Link>
+              </div>
+              <h4 className="p2">Mobile number : {profile.mobile}</h4>
+              {profile.gmail && (
+                <h4 className="p2">Gmail ID : {profile.gmail}</h4>
+              )}
+              {profile.about && <h4 className="p2">About : {profile.about}</h4>}
+              <h4 className="p2"> State : {profile.state}</h4>
+              <h4 className="p2">District : {profile.district}</h4>
+              {profile.address && (
+                <h4 className="p2">Address : {profile.address}</h4>
+              )}
+            </div>
           ) : (
             <Fragment>
               <p className="fs-5 text-secondary p-1">
@@ -55,7 +72,7 @@ const Profile = ({
 Profile.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
+  getProfileById: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -63,4 +80,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, { getProfileById })(Profile);

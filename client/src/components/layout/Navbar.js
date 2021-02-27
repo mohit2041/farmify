@@ -4,14 +4,17 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+  // for getting profile by id
+  let profileLink = user !== null ? `/profile/${user._id}` : "";
+
   const authLinks = (
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
         <Link className="nav-link active" aria-current="page" to="/shop">
           <i className="fas fa-shopping-cart"></i> Shop
         </Link>{" "}
-        <Link className="nav-link active" aria-current="page" to="/profile">
+        <Link className="nav-link active" aria-current="page" to={profileLink}>
           <i className="fas fa-user"></i> Profile
         </Link>{" "}
         <Link onClick={logout} className="nav-link active" to="/login">
@@ -61,13 +64,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
 Navbar.propTypes = {
   auth: PropTypes.object,
-  profile: PropTypes.object,
   logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
