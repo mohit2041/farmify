@@ -3,8 +3,8 @@ import {
   ITEM_ERROR,
   // UPDATE_LIKES,
   // DELETE_ITEM,
-  // ADD_ITEM,
-  // GET_ITEM,
+  ADD_ITEM,
+  GET_ITEM,
   // ADD_COMMENT,
   // REMOVE_COMMENT,
 } from "../actions/types";
@@ -26,18 +26,18 @@ function itemReducer(state = initialState, action) {
         items: payload,
         loading: false,
       };
-    //   case GET_ITEM:
-    //     return {
-    //       ...state,
-    //       item: payload,
-    //       loading: false,
-    //     };
-    //   case ADD_ITEM:
-    //     return {
-    //       ...state,
-    //       items: [payload, ...state.items],
-    //       loading: false,
-    //     };
+    case GET_ITEM:
+      return {
+        ...state,
+        item: payload,
+        loading: false,
+      };
+    case ADD_ITEM:
+      return {
+        ...state,
+        items: [payload, ...state.items],
+        loading: false,
+      };
     //   case DELETE_ITEM:
     //     return {
     //       ...state,

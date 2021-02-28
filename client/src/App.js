@@ -10,7 +10,9 @@ import Profile from "./components/profile/Profile";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import CreateProfile from "./components/profile/CreateProfile";
 import EditProfile from "./components/profile/EditProfile";
-import Items from "./components/items/Items";
+import CreateItem from "./components/items/CreateItem";
+import ItemDisplay from "./components/items/ItemDisplay";
+import Shop from "./components/shop/Shop";
 import Alert from "./components/layout/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
@@ -44,7 +46,9 @@ const App = () => {
                 path="/profile/:name/:id"
                 component={Profile}
               />
-              <PrivateRoute exact path="/shop" component={Items} />
+              <PrivateRoute exact path="/shop" component={Shop} />
+              <PrivateRoute exact path="/create-item" component={CreateItem} />
+              <PrivateRoute exact path="/item/:id" component={ItemDisplay} />
               <PrivateRoute
                 exact
                 path="/create-profile"

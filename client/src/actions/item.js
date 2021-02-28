@@ -5,8 +5,8 @@ import {
   ITEM_ERROR,
   // UPDATE_VIEWS,
   // DELETE_ITEM,
-  // ADD_ITEM,
-  // GET_ITEM,
+  ADD_ITEM,
+  GET_ITEM,
 } from "./types";
 
 // Get items
@@ -62,44 +62,56 @@ export const getItems = () => async (dispatch) => {
 //   }
 // };
 
-// // Add item
-// export const addItem = (formData) => async (dispatch) => {
-//   try {
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
+// Add item
+export const addItem = (formData, history, edit = false) => async (
+  dispatch
+) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-//     const res = await axios.post("/api/items", formData, config);
+    const res = await axios.post("/api/items", formData, config);
 
-//     dispatch({
-//       type: ADD_ITEM,
-//       payload: res.data,
-//     });
+    dispatch({
+      type: ADD_ITEM,
+      payload: res.data,
+    });
 
-//     dispatch(setAlert("item Created", "success"));
-//   } catch (err) {
-//     dispatch({
-//       type: ITEM_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+    dispatch(setAlert(edit ? "item Updated" : "item Created", "success"));
 
-// // Get item
-// export const getItem = (id) => async (dispatch) => {
-//   try {
-//     const res = await axios.get(`/api/items/${id}`);
+    if (!edit) {
+      history.push("/shop");
+    }
+  } catch (err) {
+    const errors = err.response.data.errors;
 
-//     dispatch({
-//       type: GET_ITEM,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: ITEM_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get item
+export const getItem = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/items/${id}`);
+
+    dispatch({
+      type: GET_ITEM,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};

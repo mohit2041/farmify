@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProfileById } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
+import ProfileItem from "./ProfileItem";
 
 const Profile = ({
   profile: { loading, profile },
@@ -47,21 +48,12 @@ const Profile = ({
                   </Link>
                 </div>
               )}
-              <h4 className="p2">Mobile number : {profile.mobile}</h4>
-              {profile.gmail && (
-                <h4 className="p2">Gmail ID : {profile.gmail}</h4>
-              )}
-              {profile.about && <h4 className="p2">About : {profile.about}</h4>}
-              <h4 className="p2"> State : {profile.state}</h4>
-              <h4 className="p2">District : {profile.district}</h4>
-              {profile.address && (
-                <h4 className="p2">Address : {profile.address}</h4>
-              )}
+              <ProfileItem profile={profile} />
             </div>
           ) : (
             <Fragment>
               <p className="fs-5 text-secondary p-1">
-                You haven't set your profile yet!
+                User hasn't setUp Profile yet...First add the profile
               </p>
               {match.params.id === user._id && (
                 <div className="m-2">

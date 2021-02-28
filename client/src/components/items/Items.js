@@ -9,7 +9,7 @@ const Items = ({ getItems, item: { loading, items } }) => {
   useEffect(() => {
     getItems();
   }, []);
-  return loading ? (
+  return loading || items.length === 0 ? (
     <Spinner />
   ) : (
     <Fragment>
