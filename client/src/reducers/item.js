@@ -4,6 +4,7 @@ import {
   // UPDATE_LIKES,
   // DELETE_ITEM,
   ADD_ITEM,
+  UPDATE_ITEM,
   GET_ITEM,
   // ADD_COMMENT,
   // REMOVE_COMMENT,
@@ -31,6 +32,12 @@ function itemReducer(state = initialState, action) {
         ...state,
         item: payload,
         loading: false,
+      };
+    case UPDATE_ITEM:
+      return {
+        ...state,
+        item: payload,
+        loadind: false,
       };
     case ADD_ITEM:
       return {

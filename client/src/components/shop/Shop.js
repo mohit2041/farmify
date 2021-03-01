@@ -7,7 +7,7 @@ const Shop = (props) => {
   return (
     <Fragment>
       <div className="container">
-        <div className="m-4">
+        <div className="container my-4">
           <Link to="/create-item" className="btn btn-primary">
             Sell
           </Link>

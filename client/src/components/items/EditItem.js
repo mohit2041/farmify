@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { addItem } from "../../actions/item";
+import { getItem, editItem } from "../../actions/item";
+import Spinner from "../layout/Spinner";
 
-const CreateItem = ({ addItem, history }) => {
+const CreateItem = ({
+  editItem,
+  getItem,
+  history,
+  item: { loading, item },
+  match,
+}) => {
   const [formData, setFormData] = useState({
     category: "",
     subcategory: "",
@@ -13,16 +20,31 @@ const CreateItem = ({ addItem, history }) => {
     quality: "",
   });
 
+  useEffect(() => {
+    getItem(match.params.id);
+
+    setFormData({
+      ...formData,
+      category: loading || !item.category ? "" : item.category,
+      subcategory: loading || !item.subcategory ? "" : item.subcategory,
+      quantity: loading || !item.quantity ? 0 : item.quantity,
+      price: loading || !item.price ? 0 : item.price,
+      quality: loading || !item.quality ? "" : item.quality,
+    });
+  }, [getItem, match.params.id]);
+
   const { category, subcategory, quantity, price, quality } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addItem(formData, history);
+    editItem(formData, match.params.id);
   };
 
-  return (
+  return loading === true ? (
+    <Spinner />
+  ) : (
     <div
       className="d-flex p-2 bd-highlight justify-content-center align-items-center"
       style={{ marginTop: "50px" }}
@@ -90,7 +112,14 @@ const CreateItem = ({ addItem, history }) => {
 };
 
 CreateItem.propTypes = {
-  addItem: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
+  getItem: PropTypes.func.isRequired,
+  item: PropTypes.object,
 };
+const mapStateToProps = (state) => ({
+  item: state.item,
+});
 
-export default connect(null, { addItem })(withRouter(CreateItem));
+export default connect(mapStateToProps, { getItem, editItem })(
+  withRouter(CreateItem)
+);

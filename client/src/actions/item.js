@@ -7,6 +7,7 @@ import {
   // DELETE_ITEM,
   ADD_ITEM,
   GET_ITEM,
+  UPDATE_ITEM,
 } from "./types";
 
 // Get items
@@ -63,9 +64,7 @@ export const getItems = () => async (dispatch) => {
 // };
 
 // Add item
-export const addItem = (formData, history, edit = false) => async (
-  dispatch
-) => {
+export const addItem = (formData, history) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -80,11 +79,40 @@ export const addItem = (formData, history, edit = false) => async (
       payload: res.data,
     });
 
-    dispatch(setAlert(edit ? "item Updated" : "item Created", "success"));
+    dispatch(setAlert("item Created", "success"));
 
-    if (!edit) {
-      history.push("/shop");
+    history.push("/shop");
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
+
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// edit item
+export const editItem = (formData, id) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await axios.post(`/api/items/${id}`, formData, config);
+
+    dispatch({
+      type: UPDATE_ITEM,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("item Updated", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
 

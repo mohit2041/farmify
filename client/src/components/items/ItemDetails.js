@@ -12,34 +12,25 @@ const ItemDetails = ({ item }) => {
           </Link>
         </div>
         <h6>
-          <span className="font-weight-bold text-info">Category : </span>
+          <span className="font-weight-bold text-info fs-4">Category : </span>
           {item.category}
         </h6>
-        <h6>
-          <span className="font-weight-bold text-info">Subcategory : </span>
-          {item.subcategory}
-        </h6>
+        <h4>{item.subcategory}</h4>
       </div>
       <div className="card-body">
-        <h5 className="card-title">Other Details</h5>
         <h6>
-          <span className="font-weight-bold text-info">Quality : </span>
-          {item.quality}
-        </h6>
-
-        <h6>
-          <span className="font-weight-bold text-info">Quantity : </span>
+          <span className="font-weight-bold text-info fs-4">Quantity : </span>
           {item.quantity}
           {" kg"}
         </h6>
 
         <h6>
-          <span className="font-weight-bold text-info">
-            Price (per kg) : Rs{" "}
+          <span className="font-weight-bold text-info fs-4">
+            Price (per kg) :
           </span>
+          {" Rs "}
           {item.price}
         </h6>
-        {item.detail && <p className="card-text">{item.detail}</p>}
       </div>
     </Fragment>
   );

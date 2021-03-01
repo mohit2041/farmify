@@ -8,7 +8,7 @@ const Item = require("../../model/Item");
 const User = require("../../model/User");
 
 // @route    POST api/items
-// @desc     post item to sell
+// @desc     create item to sell
 // @access   Private
 router.post(
   "/",
@@ -50,6 +50,28 @@ router.post(
     }
   }
 );
+
+// @route    POST api/items/:id
+// @desc     edit item
+// @access   Private
+router.post("/:id", [auth], async (req, res) => {
+  try {
+    let item = await Item.findById(req.params.id);
+
+    // if item found
+    if (item) {
+      item = await Item.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: req.body },
+        { new: true }
+      );
+      return res.json(item);
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // @route    GET api/items
 // @desc     Get all items

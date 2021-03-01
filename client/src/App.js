@@ -11,6 +11,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import CreateProfile from "./components/profile/CreateProfile";
 import EditProfile from "./components/profile/EditProfile";
 import CreateItem from "./components/items/CreateItem";
+import EditItem from "./components/items/EditItem";
 import ItemDisplay from "./components/items/ItemDisplay";
 import Shop from "./components/shop/Shop";
 import Alert from "./components/layout/Alert";
@@ -48,6 +49,7 @@ const App = () => {
               />
               <PrivateRoute exact path="/shop" component={Shop} />
               <PrivateRoute exact path="/create-item" component={CreateItem} />
+              <PrivateRoute exact path="/edit-item/:id" component={EditItem} />
               <PrivateRoute exact path="/item/:id" component={ItemDisplay} />
               <PrivateRoute
                 exact

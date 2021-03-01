@@ -14,7 +14,7 @@ const Items = ({ getItems, item: { loading, items } }) => {
   ) : (
     <Fragment>
       <div className="container">
-        <div className="row row-cols-4">
+        <div className="row row-cols-3">
           {items.map((item) => (
             <Item key={item._id} item={item} />
           ))}
