@@ -144,7 +144,7 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 // @route    PUT api/items/view/:id
-// @desc     view a item
+// @desc     add a view to item
 // @access   Private
 router.put("/view/:id", auth, async (req, res) => {
   try {

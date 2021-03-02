@@ -23,10 +23,7 @@ const CreateItem = ({ addItem, history }) => {
   };
 
   return (
-    <div
-      className="d-flex p-2 bd-highlight justify-content-center align-items-center"
-      style={{ marginTop: "50px" }}
-    >
+    <div className="d-flex bd-highlight justify-content-center align-items-center">
       <form onSubmit={onSubmit}>
         <p className="fs-3 text-light bg-dark">
           ---------------- * Fields are compulsory ----------------{" "}

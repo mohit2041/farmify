@@ -3,7 +3,7 @@ import classes from "./landing.module.css";
 
 const Landing = () => {
   return (
-    <section className={classes.landing}>
+    <section className={`${classes.landing}` + ` my-5 py-5`}>
       <div className={classes.landinginner}>
         <h1 className="x-large text-info  fs-2 fw-bold">welcome to Farmify</h1>
         <p className="text-info ">

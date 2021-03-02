@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { getItem, editItem } from "../../actions/item";
 import Spinner from "../layout/Spinner";
 
-const CreateItem = ({
-  editItem,
-  getItem,
-  history,
-  item: { loading, item },
-  match,
-}) => {
+const EditItem = ({ editItem, getItem, item: { loading, item }, match }) => {
   const [formData, setFormData] = useState({
     category: "",
     subcategory: "",
@@ -25,6 +18,7 @@ const CreateItem = ({
 
     setFormData({
       ...formData,
+
       category: loading || !item.category ? "" : item.category,
       subcategory: loading || !item.subcategory ? "" : item.subcategory,
       quantity: loading || !item.quantity ? 0 : item.quantity,
@@ -45,10 +39,7 @@ const CreateItem = ({
   return loading === true ? (
     <Spinner />
   ) : (
-    <div
-      className="d-flex p-2 bd-highlight justify-content-center align-items-center"
-      style={{ marginTop: "50px" }}
-    >
+    <div className="d-flex bd-highlight justify-content-center align-items-center">
       <form onSubmit={onSubmit}>
         <p className="fs-3 text-light bg-dark">
           ---------------- * Fields are compulsory ----------------{" "}
@@ -111,7 +102,7 @@ const CreateItem = ({
   );
 };
 
-CreateItem.propTypes = {
+EditItem.propTypes = {
   editItem: PropTypes.func.isRequired,
   getItem: PropTypes.func.isRequired,
   item: PropTypes.object,
@@ -120,6 +111,4 @@ const mapStateToProps = (state) => ({
   item: state.item,
 });
 
-export default connect(mapStateToProps, { getItem, editItem })(
-  withRouter(CreateItem)
-);
+export default connect(mapStateToProps, { getItem, editItem })(EditItem);

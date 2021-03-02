@@ -1,24 +1,39 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getItem } from "../../actions/item";
+import { Link, withRouter } from "react-router-dom";
+import { getItem, addView, deleteItem } from "../../actions/item";
 import Spinner from "../layout/Spinner";
 
-const ItemDisplay = ({ getItem, match, auth: { user }, item: { item } }) => {
+const ItemDisplay = ({
+  getItem,
+  addView,
+  deleteItem,
+  match,
+  auth: { user },
+  item: { item },
+  history,
+}) => {
   useEffect(() => {
     getItem(match.params.id);
-  }, [getItem, match.params.id]);
+    addView(match.params.id);
+  }, [getItem, addView, match.params.id]);
   return item === null ? (
     <Spinner />
   ) : (
     <div className="card text-left">
       <div className="card-header">
-        {user._id === item.user && (
+        {user !== null && user._id === item.user && (
           <div className="my-4">
             <Link to={`/edit-item/${item._id}`} className="btn btn-primary">
-              Edit Item
+              Edit
             </Link>
+            <button
+              className="btn btn-danger mx-3"
+              onClick={() => deleteItem(match.params.id, history)}
+            >
+              Remove
+            </button>
           </div>
         )}
         <h4>
@@ -67,6 +82,8 @@ const ItemDisplay = ({ getItem, match, auth: { user }, item: { item } }) => {
 
 ItemDisplay.propTypes = {
   getItem: PropTypes.func.isRequired,
+  addView: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
   item: PropTypes.object,
   auth: PropTypes.object,
 };
@@ -76,4 +93,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getItem })(ItemDisplay);
+export default connect(mapStateToProps, { getItem, addView, deleteItem })(
+  withRouter(ItemDisplay)
+);

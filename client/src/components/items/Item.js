@@ -14,7 +14,7 @@ const Item = ({ item }) => {
             Seller :
             <Link
               to={`/profile/${item.seller}/${item.user}`}
-              className="btn btn-primary"
+              className="btn btn-primary mx-1"
             >
               {item.seller}
             </Link>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { createProfile } from "../../actions/profile";
 import { withRouter } from "react-router-dom";
 
-const CreateProfile = ({ createProfile, history }) => {
+const CreateProfile = ({ auth: { user }, createProfile, history }) => {
   const [formData, setFormData] = useState({
     mobile: "",
     gmail: "",
@@ -17,16 +17,13 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, user);
   };
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <div
-      className="d-flex p-2 bd-highlight justify-content-center align-items-center"
-      style={{ marginTop: "50px" }}
-    >
+    <div className="d-flex bd-highlight justify-content-center align-items-center">
       <form onSubmit={onSubmit}>
         <p className="fs-3 text-light bg-dark">
           ---------------- * Fields are compulsory ----------------{" "}
@@ -91,6 +88,13 @@ const CreateProfile = ({ createProfile, history }) => {
 
 CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { createProfile })(
+  withRouter(CreateProfile)
+);

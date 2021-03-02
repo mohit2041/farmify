@@ -1,8 +1,8 @@
 import {
   GET_ITEMS,
   ITEM_ERROR,
-  // UPDATE_LIKES,
-  // DELETE_ITEM,
+  UPDATE_VIEWS,
+  DELETE_ITEM,
   ADD_ITEM,
   UPDATE_ITEM,
   GET_ITEM,
@@ -45,26 +45,26 @@ function itemReducer(state = initialState, action) {
         items: [payload, ...state.items],
         loading: false,
       };
-    //   case DELETE_ITEM:
-    //     return {
-    //       ...state,
-    //       items: state.items.filter((item) => item._id !== payload),
-    //       loading: false,
-    //     };
+    case DELETE_ITEM:
+      return {
+        ...state,
+        items: state.items.filter((item) => item._id !== payload),
+        loading: false,
+      };
     case ITEM_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
       };
-    //   case UPDATE_LIKES:
-    //     return {
-    //       ...state,
-    //       items: state.items.map((item) =>
-    //         item._id === payload.userId ? { ...item, likes: payload.likes } : item
-    //       ),
-    //       loading: false,
-    //     };
+    case UPDATE_VIEWS:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item._id === payload.itemId ? { ...item, views: payload.views } : item
+        ),
+        loading: false,
+      };
     //   case ADD_COMMENT:
     //     return {
     //       ...state,

@@ -47,10 +47,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <div
-        className="d-flex p-2 bd-highlight justify-content-center align-items-center"
-        style={{ marginTop: "50px" }}
-      >
+      <div className="d-flex bd-highlight justify-content-center align-items-center">
         <form className="form" onSubmit={onSubmit}>
           <p className="fs-1 text-light bg-dark">
             Create your account , SignUp

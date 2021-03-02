@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getProfileById } from "../../actions/profile";
+import { getProfileById, deleteAccount } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import ProfileItem from "./ProfileItem";
 
@@ -10,6 +10,7 @@ const Profile = ({
   profile: { loading, profile },
   auth: { user },
   getProfileById,
+  deleteAccount,
   match,
   name,
   avatar,
@@ -43,9 +44,15 @@ const Profile = ({
             <div>
               {match.params.id === user._id && (
                 <div className="m-3">
-                  <Link to="/edit-profile" className="btn btn-primary">
-                    Edit Profile
+                  <Link to="/edit-profile" className="btn btn-primary mx-3">
+                    Edit Account
                   </Link>
+                  <button
+                    className="btn btn-danger mx-3"
+                    onClick={deleteAccount}
+                  >
+                    Delete Account
+                  </button>
                 </div>
               )}
               <ProfileItem profile={profile} />
@@ -57,9 +64,15 @@ const Profile = ({
               </p>
               {match.params.id === user._id && (
                 <div className="m-2">
-                  <Link to="/create-profile" className="btn btn-primary">
+                  <Link to="/create-profile" className="btn btn-primary mx-3">
                     Create Profile
                   </Link>
+                  <button
+                    className="btn btn-danger mx-3"
+                    onClick={deleteAccount}
+                  >
+                    Delete Account
+                  </button>
                 </div>
               )}
             </Fragment>
@@ -74,6 +87,7 @@ Profile.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   getProfileById: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   name: PropTypes.string,
   avatar: PropTypes.string,
 };
@@ -83,4 +97,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileById, deleteAccount })(
+  Profile
+);

@@ -37,7 +37,7 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <section className="container">
+          <section className="container my-5 py-5">
             <Alert />
             <Switch>
               <Route exact path="/login" component={Login} />

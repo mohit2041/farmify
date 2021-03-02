@@ -38,7 +38,10 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   );
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      className="navbar fixed-top navbar-expand-lg  navbar-dark bg-dark"
+      style={{ opacity: 0.8 }}
+    >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <i className="fas fa-tractor"> </i> Farmify

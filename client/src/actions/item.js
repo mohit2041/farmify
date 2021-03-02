@@ -3,8 +3,8 @@ import { setAlert } from "./alert";
 import {
   GET_ITEMS,
   ITEM_ERROR,
-  // UPDATE_VIEWS,
-  // DELETE_ITEM,
+  UPDATE_VIEWS,
+  DELETE_ITEM,
   ADD_ITEM,
   GET_ITEM,
   UPDATE_ITEM,
@@ -27,41 +27,45 @@ export const getItems = () => async (dispatch) => {
   }
 };
 
-// // Add view
-// export const addView = (itemId) => async (dispatch) => {
-//   try {
-//     const res = await axios.put(`/api/items/view/${itemId}`);
+// Add view
+export const addView = (itemId) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/items/view/${itemId}`);
 
-//     dispatch({
-//       type: UPDATE_VIEWS,
-//       payload: { itemId, views: res.data },
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: ITEM_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+    dispatch({
+      type: UPDATE_VIEWS,
+      payload: { itemId, views: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
-// // Delete item
-// export const deleteItem = (id) => async (dispatch) => {
-//   try {
-//     await axios.delete(`/api/items/${id}`);
+// Delete item
+export const deleteItem = (id, history) => async (dispatch) => {
+  if (window.confirm("Are you sure to remove this item ?")) {
+    try {
+      await axios.delete(`/api/items/${id}`);
 
-//     dispatch({
-//       type: DELETE_ITEM,
-//       payload: id,
-//     });
+      dispatch({
+        type: DELETE_ITEM,
+        payload: id,
+      });
 
-//     dispatch(setAlert("item Removed", "success"));
-//   } catch (err) {
-//     dispatch({
-//       type: ITEM_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+      dispatch(setAlert("item Removed", "success"));
+
+      history.push("/shop");
+    } catch (err) {
+      dispatch({
+        type: ITEM_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
+  }
+};
 
 // Add item
 export const addItem = (formData, history) => async (dispatch) => {
