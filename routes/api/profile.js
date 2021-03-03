@@ -52,8 +52,6 @@ router.post(
       user: req.user.id,
     };
 
-    profileFields.selling = [];
-
     //adding rest of fields
     if (mobile) profileFields.mobile = mobile;
     if (gmail) profileFields.gmail = gmail;
@@ -61,8 +59,6 @@ router.post(
     if (state) profileFields.state = state;
     if (district) profileFields.district = district;
     if (address) profileFields.address = address;
-
-    //adding selling items ?
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
@@ -77,7 +73,6 @@ router.post(
 
         return res.json(profile);
       }
-
       // creating profile
 
       profile = new Profile(profileFields);

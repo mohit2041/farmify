@@ -3,21 +3,24 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProfileById, deleteAccount } from "../../actions/profile";
+import { getUserItems } from "../../actions/item";
 import Spinner from "../layout/Spinner";
 import ProfileItem from "./ProfileItem";
+import Item from "../items/Item";
 
 const Profile = ({
   profile: { loading, profile },
   auth: { user },
+  item,
   getProfileById,
   deleteAccount,
   match,
-  name,
-  avatar,
+  getUserItems,
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+    getUserItems(match.params.id);
+  }, [getProfileById, getUserItems, match.params.id]);
 
   return loading || user === null ? (
     <Spinner />
@@ -79,6 +82,23 @@ const Profile = ({
           )}
         </div>
       </div>
+      {/* selling items of a user */}
+      <div className="container my-5">
+        {item.loading || item.items.length === 0 ? (
+          <Spinner />
+        ) : (
+          <Fragment>
+            <div className="text-center my-4">
+              <h1>Items put on sale</h1>
+            </div>
+            <div className="row row-cols-3">
+              {item.items.map((item) => (
+                <Item key={item._id} item={item} />
+              ))}
+            </div>
+          </Fragment>
+        )}
+      </div>
     </Fragment>
   );
 };
@@ -86,17 +106,20 @@ const Profile = ({
 Profile.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   getProfileById: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
-  name: PropTypes.string,
-  avatar: PropTypes.string,
+  getUserItems: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
   auth: state.auth,
+  item: state.item,
 });
 
-export default connect(mapStateToProps, { getProfileById, deleteAccount })(
-  Profile
-);
+export default connect(mapStateToProps, {
+  getProfileById,
+  deleteAccount,
+  getUserItems,
+})(Profile);

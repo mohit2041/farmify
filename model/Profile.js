@@ -27,15 +27,6 @@ const ProfileSchema = new mongoose.Schema({
   address: {
     type: String,
   },
-  selling: [
-    {
-      item: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "item",
-      },
-    },
-  ],
-  // items requested for purchasing
   date: {
     type: Date,
     default: Date.now,

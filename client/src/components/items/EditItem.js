@@ -8,8 +8,8 @@ const EditItem = ({ editItem, getItem, item: { loading, item }, match }) => {
   const [formData, setFormData] = useState({
     category: "",
     subcategory: "",
-    quantity: 0,
-    price: 0,
+    quantity: "",
+    price: "",
     quality: "",
   });
 
@@ -21,8 +21,8 @@ const EditItem = ({ editItem, getItem, item: { loading, item }, match }) => {
 
       category: loading || !item.category ? "" : item.category,
       subcategory: loading || !item.subcategory ? "" : item.subcategory,
-      quantity: loading || !item.quantity ? 0 : item.quantity,
-      price: loading || !item.price ? 0 : item.price,
+      quantity: loading || !item.quantity ? "" : item.quantity,
+      price: loading || !item.price ? "" : item.price,
       quality: loading || !item.quality ? "" : item.quality,
     });
   }, [getItem, match.params.id]);
@@ -66,7 +66,7 @@ const EditItem = ({ editItem, getItem, item: { loading, item }, match }) => {
         </div>
         <div className="form-group my-3">
           <input
-            type="Number"
+            type="number"
             placeholder="Quantity* (per kg)"
             className="form-control"
             name="quantity"
@@ -76,7 +76,7 @@ const EditItem = ({ editItem, getItem, item: { loading, item }, match }) => {
         </div>
         <div className="form-group my-3">
           <input
-            type="Number"
+            type="number"
             placeholder="Price* (per kg)"
             className="form-control"
             name="price"

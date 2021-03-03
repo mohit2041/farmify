@@ -62,12 +62,9 @@ export const getProfileById = (userId) => async (dispatch) => {
 };
 
 // Create or update profile
-export const createProfile = (
-  formData,
-  history,
-  user = null,
-  edit = false
-) => async (dispatch) => {
+export const createProfile = (formData, history, user, edit = false) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
@@ -84,7 +81,7 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
 
-    if (!edit && user !== null) {
+    if (!edit) {
       history.push(`/profile/${user.name}/${user._id}`);
     }
   } catch (err) {

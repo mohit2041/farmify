@@ -8,8 +8,8 @@ const CreateItem = ({ addItem, history }) => {
   const [formData, setFormData] = useState({
     category: "",
     subcategory: "",
-    quantity: 0,
-    price: 0,
+    quantity: "",
+    price: "",
     quality: "",
   });
 
@@ -50,7 +50,7 @@ const CreateItem = ({ addItem, history }) => {
         </div>
         <div className="form-group my-3">
           <input
-            type="Number"
+            type="number"
             placeholder="Quantity* (per kg)"
             className="form-control"
             name="quantity"
@@ -60,7 +60,7 @@ const CreateItem = ({ addItem, history }) => {
         </div>
         <div className="form-group my-3">
           <input
-            type="Number"
+            type="number"
             placeholder="Price* (per kg)"
             className="form-control"
             name="price"

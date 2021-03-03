@@ -111,6 +111,31 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
+// @route    GET api/items/user/:userID
+// @desc     Get items by userID
+// @access   Private
+router.get("/user/:userID", auth, async (req, res) => {
+  try {
+    const items = await Item.find({ user: req.params.userID });
+
+    if (!items) {
+      return res.status(404).json({ msg: "items not found" });
+    }
+
+    res.json(items);
+  } catch (err) {
+    // if id is not the type of ObjectId we want the message 'item not found'
+    if (err.kind == "ObjectId") {
+      return res
+        .status(400)
+        .json({ msg: "items not found , check userID is correct?" });
+    }
+    console.error(err.message);
+
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route    DELETE api/items/:id
 // @desc     Delete a item
 // @access   Private

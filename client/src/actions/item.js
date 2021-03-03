@@ -26,6 +26,22 @@ export const getItems = () => async (dispatch) => {
     });
   }
 };
+// Get items
+export const getUserItems = (userID) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/items/user/${userID}`);
+
+    dispatch({
+      type: GET_ITEMS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
 // Add view
 export const addView = (itemId) => async (dispatch) => {

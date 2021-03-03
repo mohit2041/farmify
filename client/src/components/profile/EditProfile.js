@@ -10,6 +10,7 @@ const CreateProfile = ({
   getCurrentProfile,
   history,
   profile: { profile, loading },
+  auth: { user },
 }) => {
   const [formData, setFormData] = useState({
     mobile: "",
@@ -36,7 +37,7 @@ const CreateProfile = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history, true);
+    createProfile(formData, history, user, true);
   };
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -112,11 +113,13 @@ const CreateProfile = ({
 CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object,
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
