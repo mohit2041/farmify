@@ -62,8 +62,8 @@ const Profile = ({
             </div>
           ) : (
             <Fragment>
-              <p className="fs-5 text-secondary p-1">
-                User hasn't setUp Profile yet...First add the profile
+              <p className="fs-5 text-info p-1">
+                User hasn't setUp Profile yet...
               </p>
               {match.params.id === user._id && (
                 <div className="m-2">

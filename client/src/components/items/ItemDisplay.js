@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { getItem, addView, deleteItem } from "../../actions/item";
 import Spinner from "../layout/Spinner";
+import Offer from "./Offer";
+import Item from "./Item";
 
 const ItemDisplay = ({
   getItem,
@@ -18,6 +20,7 @@ const ItemDisplay = ({
     getItem(match.params.id);
     addView(match.params.id);
   }, [getItem, addView, match.params.id]);
+
   return item === null ? (
     <Spinner />
   ) : (
@@ -51,30 +54,35 @@ const ItemDisplay = ({
       </div>
 
       <div className="card-body bg-dark text-light">
-        <h1 className="card-title">Other Details</h1>
-        <h4>
-          <span className="font-weight-bold text-info fs-2">
-            Quality Description :{" "}
-          </span>
-          {item.quality}
-        </h4>
+        <div>
+          <h1 className="card-title border-bottom border-light">
+            Other Details
+          </h1>
+          <h4>
+            <span className="font-weight-bold text-info fs-2">
+              Quality Description :{" "}
+            </span>
+            {item.quality}
+          </h4>
 
-        <h4>
-          <span className="font-weight-bold text-info fs-2">
-            Available Quantity :{" "}
-          </span>
-          {item.quantity}
-          {" kg"}
-        </h4>
+          <h4>
+            <span className="font-weight-bold text-info fs-2">
+              Available Quantity :{" "}
+            </span>
+            {item.quantity}
+            {" kg"}
+          </h4>
 
-        <h4>
-          <span className="font-weight-bold text-info fs-2">
-            Price (per kg) :
-          </span>
-          {" Rs "}
-          {item.price}
-        </h4>
-        {item.detail && <p className="card-text">{item.detail}</p>}
+          <h4>
+            <span className="font-weight-bold text-info fs-2">
+              Price (per kg) :
+            </span>
+            {" Rs "}
+            {item.price}
+          </h4>
+          {item.detail && <p className="card-text">{item.detail}</p>}
+        </div>
+        <Offer item={item} user={user} />
       </div>
     </div>
   );

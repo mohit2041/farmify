@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Category like dals,food grains etc
-// Subcategory ie wheat,rice etc
-// Quantity
-// Quality description
-// Price
-// Other details (optional)
-
 const ItemSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -47,6 +40,21 @@ const ItemSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId,
         ref: "user",
+      },
+    },
+  ],
+  offers: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+      offerPrice: {
+        type: Number,
+      },
+      offerDate: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],

@@ -199,4 +199,102 @@ router.put("/view/:id", auth, async (req, res) => {
   }
 });
 
+// @route    PUT api/items/offer/:id
+// @desc     add a offer to item
+// @access   Private
+router.put(
+  "/offer/:id",
+  [
+    auth,
+    check(
+      "offerPrice",
+      "please put a valid and reasonable offerPrice"
+    ).notEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      let item = await Item.findById(req.params.id);
+      // if item not found
+      if (!item) {
+        return res.status(404).json({ msg: "item not found" });
+      }
+      // if item found
+      // check if user already make offer
+      if (
+        item.offers.filter((offer) => offer.user.toString() === req.user.id)
+          .length === 0
+      ) {
+        item.offers.unshift({
+          user: req.user.id,
+          offerPrice: req.body.offerPrice,
+        });
+        return res.json(item);
+      }
+      // otherwise delete previous offer
+      const offerIndex = item.offers
+        .map((offer) => offer.user)
+        .indexOf(req.user.id);
+
+      if (offerIndex == -1) {
+        return res.status(400).json({ msg: "offer not found" });
+      }
+
+      item.offers.splice(offerIndex, 1);
+
+      item.offers.unshift({
+        user: req.user.id,
+        offerPrice: req.body.offerPrice,
+      });
+      return res.json(item);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+// @route    DELETE api/items/offer/:id
+// @desc     Delete offer from item
+// @access   Private
+
+router.delete("/offer/:id", auth, async (req, res) => {
+  try {
+    const item = await Item.findById(req.params.id);
+
+    if (!item) {
+      return res.status(400).json({ msg: "item not found" });
+    }
+
+    if (item.offers.length == 0) {
+      return res.status(400).json({ msg: "no offers yet" });
+    }
+
+    const offerIndex = item.offers
+      .map((offer) => offer.user)
+      .indexOf(req.user.id);
+
+    if (offerIndex == -1) {
+      return res.status(400).json({ msg: "offer not found" });
+    }
+
+    item.offers.splice(offerIndex, 1);
+
+    await item.save();
+    return res.status(200).json(item);
+  } catch (error) {
+    // if id is not the type of ObjectId we want the message 'item not found'
+    if (err.kind == "ObjectId") {
+      return res.status(400).json({ msg: "this item not found" });
+    }
+
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
+});
+
 module.exports = router;
