@@ -6,11 +6,14 @@ import {
   ADD_ITEM,
   UPDATE_ITEM,
   GET_ITEM,
-  // ADD_COMMENT,
-  // REMOVE_COMMENT,
+  GET_OFFERS,
+  ADD_OFFER,
+  DELETE_OFFER,
 } from "../actions/types";
 
 const initialState = {
+  offer: null,
+  offers: [],
   items: [],
   item: null,
   loading: true,
@@ -31,6 +34,7 @@ function itemReducer(state = initialState, action) {
       return {
         ...state,
         item: payload,
+
         loading: false,
       };
     case UPDATE_ITEM:
@@ -55,6 +59,26 @@ function itemReducer(state = initialState, action) {
       return {
         ...state,
         error: payload,
+        loading: false,
+      };
+    case ADD_OFFER: {
+      return {
+        ...state,
+        offer: payload,
+        loading: false,
+      };
+    }
+    case DELETE_OFFER: {
+      return {
+        ...state,
+        offer: null,
+        loading: false,
+      };
+    }
+    case GET_OFFERS:
+      return {
+        ...state,
+        offers: payload,
         loading: false,
       };
     case UPDATE_VIEWS:

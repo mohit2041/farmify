@@ -19,3 +19,6 @@ export const GET_ITEM = "GET_ITEM";
 export const UPDATE_ITEM = "UPDATE_ITEM";
 export const UPDATE_VIEWS = "UPDATE_VIEWS";
 export const DELETE_ITEM = "DELETE_ITEM";
+export const GET_OFFERS = "GET_OFFERS";
+export const ADD_OFFER = "ADD_OFFER";
+export const DELETE_OFFER = "DELETE_OFFER";

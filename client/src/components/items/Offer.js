@@ -1,12 +1,16 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { addOffer, deleteOffer } from "../../actions/item";
+import formatDate from "../../utils/formatDate";
 
-const Offer = ({ user, item }) => {
+const Offer = ({ user, item, offer, addOffer, deleteOffer }) => {
   const [toggleOffer, offerHandler] = useState(false);
   const [formData, setFormData] = useState({
     offerPrice: "",
   });
+
   const { offerPrice } = formData;
 
   const onChange = (e) => {
@@ -14,27 +18,36 @@ const Offer = ({ user, item }) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(offerPrice);
+    addOffer(formData, item._id);
   };
-  return (
-    user !== null &&
-    user._id !== item.user && (
-      <Fragment>
-        {/* seller info */}
-        <div className="my-4">
-          <h1 className="card-title border-bottom border-light">Seller</h1>
-          <span className="font-weight-bold text-info fs-2">
-            Link to Profile :{" "}
-          </span>
-          <Link
-            to={`/profile/${item.seller}/${item.user}`}
-            className="btn btn-primary mx-2 border border-light"
+
+  let makeOffer = null;
+  let removeOffer = null;
+
+  if (user._id !== item.user) {
+    if (offer !== null) {
+      // console.log(offer);
+      removeOffer = (
+        <div className="my-3">
+          <h4>
+            <span className="font-weight-bold text-info fs-2">
+              Offer already made of Rs{" "}
+            </span>
+            {offer.offerPrice}
+            <span className="font-weight-bold text-info fs-2">{" on "}</span>
+            {formatDate(offer.offerDate)}
+          </h4>
+          <button
+            className="btn btn-primary border border-light my-1"
+            onClick={() => deleteOffer(item._id)}
           >
-            {item.seller}
-          </Link>
+            Remove Offer
+          </button>
         </div>
-        {/* make a offer */}
-        <div className="my-4">
+      );
+    } else {
+      makeOffer = (
+        <div className="my-3">
           <button
             className="btn btn-primary border border-light"
             onClick={() => offerHandler(!toggleOffer)}
@@ -65,14 +78,37 @@ const Offer = ({ user, item }) => {
             </div>
           )}
         </div>
-      </Fragment>
-    )
+      );
+    }
+  }
+  return (
+    <Fragment>
+      {/* seller info */}
+      <div className="my-4">
+        <h1 className="card-title border-bottom border-light">Seller</h1>
+        <span className="font-weight-bold text-info fs-2">
+          Link to Profile :{" "}
+        </span>
+        <Link
+          to={`/profile/${item.seller}/${item.user}`}
+          className="btn btn-primary mx-2 border border-light"
+        >
+          {item.seller}
+        </Link>
+      </div>
+      {/* make a offer */}
+      {makeOffer}
+      {removeOffer}
+    </Fragment>
   );
 };
 
 Offer.propTypes = {
   user: PropTypes.object,
   item: PropTypes.object,
+  offer: PropTypes.object,
+  deleteOffer: PropTypes.func.isRequired,
+  addOffer: PropTypes.func.isRequired,
 };
 
-export default Offer;
+export default connect(null, { deleteOffer, addOffer })(Offer);

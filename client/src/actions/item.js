@@ -8,6 +8,9 @@ import {
   ADD_ITEM,
   GET_ITEM,
   UPDATE_ITEM,
+  GET_OFFERS,
+  ADD_OFFER,
+  DELETE_OFFER,
 } from "./types";
 
 // Get items
@@ -26,7 +29,7 @@ export const getItems = () => async (dispatch) => {
     });
   }
 };
-// Get items
+// Get items on sale by a user
 export const getUserItems = (userID) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/items/user/${userID}`);
@@ -34,6 +37,80 @@ export const getUserItems = (userID) => async (dispatch) => {
     dispatch({
       type: GET_ITEMS,
       payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get items on which user made offer
+export const getOfferItems = (userID) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/items/user/offer/${userID}`);
+
+    dispatch({
+      type: GET_OFFERS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get offer of the user if made already
+export const getUserOffer = (itemID) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/items/offer/${itemID}`);
+
+    dispatch({
+      type: ADD_OFFER,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add offer to item
+export const addOffer = (formData, itemId) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.put(`/api/items/offer/${itemId}`, formData, config);
+
+    dispatch({
+      type: ADD_OFFER,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("offer made", "success"));
+  } catch (err) {
+    dispatch({
+      type: ITEM_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+// delete offer to item
+export const deleteOffer = (itemId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/items/offer/${itemId}`);
+
+    dispatch({
+      type: DELETE_OFFER,
+      payload: itemId,
     });
   } catch (err) {
     dispatch({
