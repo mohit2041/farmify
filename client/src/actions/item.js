@@ -138,19 +138,21 @@ export const addView = (itemId) => async (dispatch) => {
 };
 
 // Delete item
-export const deleteItem = (id, history) => async (dispatch) => {
+export const deleteItem = (itemID, userID, name, history) => async (
+  dispatch
+) => {
   if (window.confirm("Are you sure to remove this item ?")) {
     try {
-      await axios.delete(`/api/items/${id}`);
+      await axios.delete(`/api/items/${itemID}`);
 
       dispatch({
         type: DELETE_ITEM,
-        payload: id,
+        payload: itemID,
       });
 
       dispatch(setAlert("item Removed", "success"));
 
-      history.push("/shop");
+      history.push(`/profile/${name}/${userID}`);
     } catch (err) {
       dispatch({
         type: ITEM_ERROR,

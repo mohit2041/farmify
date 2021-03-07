@@ -5,7 +5,7 @@ import ItemDetails from "./ItemDetails";
 
 const Item = ({ item }) => {
   return (
-    <div className="col">
+    <div className="col-12 col-sm-6 col-md-4 col-lg-3">
       <div className="card border-success text-white bg-dark mb-3">
         <ItemDetails item={item} />
 

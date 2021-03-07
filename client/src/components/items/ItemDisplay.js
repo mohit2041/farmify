@@ -13,7 +13,7 @@ const ItemDisplay = ({
   deleteItem,
   getUserOffer,
   match,
-  auth: { user },
+  auth: { user, loading },
   item: { item, offer },
   history,
 }) => {
@@ -39,7 +39,7 @@ const ItemDisplay = ({
           <h1 className="card-title border-bottom border-light my-5 text-center">
             Offers made on the item
           </h1>
-          <div className="row row-cols-3">
+          <div className="row">
             {item.offers.map((offer) => (
               <ItemOffer offer={offer} key={offer._id} />
             ))}
@@ -54,14 +54,16 @@ const ItemDisplay = ({
     <Fragment>
       <div className="card text-left">
         <div className="card-header">
-          {user !== null && user._id === item.user && (
+          {loading === false && user._id === item.user && (
             <div className="my-4">
               <Link to={`/edit-item/${item._id}`} className="btn btn-primary">
                 Edit
               </Link>
               <button
                 className="btn btn-danger mx-3"
-                onClick={() => deleteItem(match.params.id, history)}
+                onClick={() =>
+                  deleteItem(match.params.id, user._id, user.name, history)
+                }
               >
                 Remove
               </button>

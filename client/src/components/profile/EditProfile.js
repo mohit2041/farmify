@@ -49,7 +49,7 @@ const CreateProfile = ({
       <div className="d-flex bd-highlight justify-content-center align-items-center">
         <form onSubmit={onSubmit}>
           <p className="fs-3 text-light bg-dark">
-            ---------------- * Fields are compulsory ----------------{" "}
+            ------- * Fields are compulsory-------{" "}
           </p>
           <div className="form-group my-3">
             <input

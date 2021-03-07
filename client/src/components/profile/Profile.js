@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProfileById, deleteAccount } from "../../actions/profile";
-import { getUserItems } from "../../actions/item";
+import { getUserItems, getOfferItems } from "../../actions/item";
 import Spinner from "../layout/Spinner";
 import ProfileItem from "./ProfileItem";
 import Item from "../items/Item";
@@ -16,11 +16,13 @@ const Profile = ({
   deleteAccount,
   match,
   getUserItems,
+  getOfferItems,
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
     getUserItems(match.params.id);
-  }, [getProfileById, getUserItems, match.params.id]);
+    getOfferItems(match.params.id);
+  }, [getProfileById, getUserItems, getOfferItems, match.params.id]);
 
   return loading || user === null ? (
     <Spinner />
@@ -84,21 +86,56 @@ const Profile = ({
       </div>
       {/* selling items of a user */}
       <div className="container my-5">
-        {item.loading || item.items.length === 0 ? (
+        {item.loading === true ? (
           <Spinner />
         ) : (
           <Fragment>
-            <div className="text-center my-4">
-              <h1>Items put on sale</h1>
-            </div>
-            <div className="row row-cols-3">
-              {item.items.map((item) => (
-                <Item key={item._id} item={item} />
-              ))}
-            </div>
+            {item.items.length === 0 ? (
+              <div className="text-center text-info my-4 border-bottom border-dark">
+                <h1>No items have been put up for sale yet</h1>
+              </div>
+            ) : (
+              <Fragment>
+                <div className="text-center text-info my-4 border-bottom border-dark">
+                  <h1>Items put on sale</h1>
+                </div>
+                <div className="row">
+                  {item.items.map((item) => (
+                    <Item key={item._id} item={item} />
+                  ))}
+                </div>
+              </Fragment>
+            )}
           </Fragment>
         )}
       </div>
+      {/* items on which user has made offer */}
+      {match.params.id === user._id && (
+        <div className="container my-5">
+          {item.loading === true ? (
+            <Spinner />
+          ) : (
+            <Fragment>
+              {item.offers.length === 0 ? (
+                <div className="text-center text-info my-4 border-bottom border-dark">
+                  <h1>No offers made yet</h1>
+                </div>
+              ) : (
+                <Fragment>
+                  <div className="text-center text-info my-4 border-bottom border-dark">
+                    <h1>Items on which you have made offer</h1>
+                  </div>
+                  <div className="row">
+                    {item.offers.map((item) => (
+                      <Item key={item._id} item={item} />
+                    ))}
+                  </div>
+                </Fragment>
+              )}
+            </Fragment>
+          )}
+        </div>
+      )}
     </Fragment>
   );
 };
@@ -110,6 +147,7 @@ Profile.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   getUserItems: PropTypes.func.isRequired,
+  getOfferItems: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -122,4 +160,5 @@ export default connect(mapStateToProps, {
   getProfileById,
   deleteAccount,
   getUserItems,
+  getOfferItems,
 })(Profile);
