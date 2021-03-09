@@ -11,6 +11,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const authLinks = (
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
+        <Link className="nav-link active" to="/market">
+          Market
+        </Link>
         <Link className="nav-link active" aria-current="page" to="/shop">
           <i className="fas fa-shopping-cart"></i> Shop
         </Link>{" "}
@@ -27,6 +30,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const guestLinks = (
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
+        <Link className="nav-link active" to="/market">
+          Market
+        </Link>
         <Link className="nav-link active" to="/login">
           <i className="fas fa-sign-in-alt"> </i> Login
         </Link>{" "}

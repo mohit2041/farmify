@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -22,6 +22,117 @@ const CreateItem = ({ addItem, history }) => {
     addItem(formData, history);
   };
 
+  const categories = [
+    {
+      category: "Cereals",
+      subcategory: ["Amphophalus", "Bajra", "Maize", "Paddy", "Rice", "Wheat"],
+    },
+    {
+      category: "Pulses",
+      subcategory: [
+        "Arhar (Red Gram)",
+        "Arhar",
+        "Beans",
+        "Gram Dal (Chana)",
+        "Black Gram (Urd)",
+        "Cowpea (Lobia)",
+        "Green Gram (Moong)",
+        "Lentil (Masur)",
+      ],
+    },
+    {
+      category: "Oil Seeds",
+      subcategory: ["Mustard"],
+    },
+    {
+      category: "Fibre Crops",
+      subcategory: ["Cotton", "Jute"],
+    },
+    {
+      category: "Fruits",
+      subcategory: [
+        "Apple",
+        "Banana",
+        "Grapes",
+        "Guava",
+        "Jack Fruit",
+        "Mousambi(Sweet Lime)",
+        "Papaya",
+        "Pineapple",
+        "Pomegranate",
+      ],
+    },
+    {
+      category: "Vegetables",
+      subcategory: [
+        "Amaranthus",
+        "Ashgourd",
+        "Banana Green",
+        "Beetroot",
+        "Bhindi(Ladies Finger)",
+        "Bitter gourd",
+        "Bottle gourd",
+        "Brinjal",
+        "Cabbage",
+        "Capsicum",
+        "Carrot",
+        "Cauliflower",
+        "Cluster beans",
+        "Colacasia",
+        "Coriander(Leaves)",
+        "Cowpea(Veg)",
+        "Cucumbar(Kheera)",
+        "Drumstick",
+        "Field Pea",
+        "French Beans (Frasbean)",
+        "Ginger(Green)",
+        "Green Avare (W)",
+        "Green Chilli",
+        "Guar",
+        "Knool Khol",
+        "Lemon",
+        "Mango (Raw-Ripe)",
+        "Methi(Leaves)",
+        "Onion",
+        "Peas Wet",
+        "Potato",
+        "Pumpkin",
+        "Raddish",
+        "Ridge gourd(Tori)",
+        "Seemebadnekai",
+        "Snake gourd",
+        "Suvarna Gadde",
+        "Sweet Pumpkin",
+        "Tapioca",
+        "Tomato",
+      ],
+    },
+    {
+      category: "Spices",
+      subcategory: [
+        "Black pepper",
+        "Coconut",
+        "Garlic",
+        "Ginger(Dry)",
+        "Turmeric",
+      ],
+    },
+    {
+      category: "Others",
+      subcategory: ["Broken Rice", "Gur(Jaggery)", "Sugar"],
+    },
+  ];
+  let reqCategory = null;
+
+  if (category !== "") {
+    for (var i = 0; i < categories.length; i++) {
+      if (categories[i].category === category) {
+        reqCategory = categories[i];
+        break;
+      }
+    }
+  }
+
   return (
     <div className="d-flex bd-highlight justify-content-center align-items-center">
       <form onSubmit={onSubmit}>
@@ -29,29 +140,45 @@ const CreateItem = ({ addItem, history }) => {
           -------* Fields are compulsory -------{" "}
         </p>
         <div className="form-group my-3">
-          <input
-            type="text"
-            placeholder="Category*"
-            className="form-control"
+          <select
+            className="form-control custom-select"
             name="category"
             value={category}
             onChange={onChange}
-          />
+          >
+            <option defaultValue>Category*</option>
+            {categories.map((ele, index) => (
+              <option key={index}>{ele.category}</option>
+            ))}
+          </select>
         </div>
         <div className="form-group my-3">
-          <input
-            type="text"
-            placeholder="Subcategory*"
-            className="form-control"
-            name="subcategory"
-            value={subcategory}
-            onChange={onChange}
-          />
+          {reqCategory === null ? (
+            <Fragment>
+              <select className="form-control custom-select">
+                <option defaultValue>Subcategory*</option>
+              </select>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <select
+                className="form-control custom-select"
+                name="subcategory"
+                value={subcategory}
+                onChange={onChange}
+              >
+                <option defaultValue>Subcategory*</option>
+                {reqCategory.subcategory.map((ele, index) => (
+                  <option key={index}>{ele}</option>
+                ))}
+              </select>
+            </Fragment>
+          )}
         </div>
         <div className="form-group my-3">
           <input
             type="number"
-            placeholder="Quantity* (per kg)"
+            placeholder="Quantity* (kg/L)"
             className="form-control"
             name="quantity"
             value={quantity}
@@ -61,7 +188,7 @@ const CreateItem = ({ addItem, history }) => {
         <div className="form-group my-3">
           <input
             type="number"
-            placeholder="Price* (per kg)"
+            placeholder="Price* (per kg/L)"
             className="form-control"
             name="price"
             value={price}

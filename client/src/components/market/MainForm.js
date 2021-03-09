@@ -1,27 +1,125 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
-import { withRouter } from "react-router-dom";
 
-const CreateProfile = ({ auth: { user }, createProfile, history }) => {
+const MainForm = (props) => {
   const [formData, setFormData] = useState({
-    mobile: "",
-    gmail: "",
+    commodity: "",
     state: "",
     district: "",
-    address: "",
+    from: "",
+    to: "",
   });
 
-  const { mobile, gmail, state, district, address } = formData;
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    createProfile(formData, history, user);
-  };
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
+  const commodities = [
+    "Ajwan",
+    "Ajwan Gram",
+    "Almond",
+    "Alsandikai",
+    "Ambada Seed",
+    "Amla",
+    "Amphophalus",
+    "Antawala",
+    "Anthorium",
+    "Apple",
+    "Arhar Dal",
+    "Banana",
+    "Bamboo",
+    "Bajra",
+    "Beans",
+    "Beetroot",
+    "Ber",
+    "Bhindi",
+    "Barley",
+    "Binoula",
+    "Bitter gourd",
+    "Black Gram Dal",
+    "Black pepper",
+    "Bottle gourd",
+    "Brinjal",
+    "Cabbage",
+    "Cane",
+    "Capsicum",
+    "Cardamoms",
+    "Carrot",
+    "Cashewnuts",
+    "Castor Oil",
+    "Castor Seed",
+    "Cauliflower",
+    "Chikoos",
+    "Chili Red",
+    "Chilly Capsicum",
+    "Chow Chow",
+    "Cinamon",
+    "Cloves",
+    "Coconut",
+    "Coffee",
+    "Coriander",
+    "Cotton",
+    "Cucumbar",
+    "Dal",
+    "Dalda",
+    "Dry Grapes",
+    "Egg",
+    "Garlic",
+    "Ghee",
+    "Ginger",
+    "Grapes",
+    "Green Chilli",
+    "Green Gram Dal",
+    "Green Peas",
+    "Groundnut",
+    "Guava",
+    "Jaggery",
+    "Jamun",
+    "Jowar",
+    "Jute",
+    "Karbuja",
+    "Kinnow",
+    "Lemon",
+    "Litchi",
+    "Maize",
+    "Mango",
+    "Masur Dal",
+    "Methi",
+    "Mustard",
+    "Mousambi",
+    "Mustard Oil",
+    "Onion",
+    "Orange",
+    "Paddy",
+    "Papaya",
+    "Peach",
+    "Pear",
+    "Peas",
+    "Pepper",
+    "Pineapple",
+    "Pomegranate",
+    "Potato",
+    "Pumpkin",
+    "Raddish",
+    "Rice",
+    "Rubber",
+    "Seetafal",
+    "Soyabean",
+    "Spinach",
+    "Sugar",
+    "Sugarcane",
+    "Sweet Potato",
+    "Sweet Pumpkin",
+    "Tamarind Fruit",
+    "Tea",
+    "Tinda",
+    "Tobacco",
+    "Tomato",
+    "Turmeric",
+    "Turmeric",
+    "Turnip",
+    "Walnut",
+    "Water Melon",
+    "Wheat",
+    "Wood",
+    "Wool",
+  ];
   const states = [
     {
       state: "Andhra Pradesh",
@@ -901,6 +999,16 @@ const CreateProfile = ({ auth: { user }, createProfile, history }) => {
       ],
     },
   ];
+
+  const onChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const { commodity, state, district, from, to } = formData;
+
   let reqState = null;
 
   if (state !== "") {
@@ -913,94 +1021,78 @@ const CreateProfile = ({ auth: { user }, createProfile, history }) => {
   }
 
   return (
-    <div className="d-flex bd-highlight justify-content-center align-items-center">
-      <form onSubmit={onSubmit}>
-        <p className="fs-3 text-light bg-dark">
-          ------- * Fields are compulsory -------{" "}
-        </p>
-        <div className="form-group my-3">
-          <input
-            type="text"
-            placeholder="Mobile Number*"
-            className="form-control"
-            name="mobile"
-            value={mobile}
-            onChange={onChange}
-          />
-        </div>
-        <div className="form-group my-3">
-          <input
-            type="email"
-            placeholder="Gmail ID"
-            className="form-control"
-            name="gmail"
-            value={gmail}
-            onChange={onChange}
-          />
-        </div>
-        <div className="form-group my-3">
-          <select
-            className="form-control custom-select"
-            name="state"
-            value={state}
-            onChange={onChange}
-          >
-            <option defaultValue>State*</option>
-            {states.map((ele, index) => (
-              <option key={index}>{ele.state}</option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group my-3">
-          {reqState === null ? (
-            <Fragment>
-              <select className="form-control custom-select">
-                <option defaultValue>District</option>
-              </select>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <select
-                className="form-control custom-select"
-                name="district"
-                value={district}
-                onChange={onChange}
-              >
-                <option defaultValue>District</option>
-                {reqState.districts.map((ele, index) => (
-                  <option key={index}>{ele}</option>
-                ))}
-              </select>
-            </Fragment>
-          )}
-        </div>
-        <div className="form-group my-3">
-          <input
-            type="text"
-            placeholder="Address*"
-            className="form-control"
-            name="address"
-            value={address}
-            onChange={onChange}
-          />
-        </div>
-        <div className="d-flex justify-content-center my-input">
-          <input type="submit" className="btn btn-success" value="Save" />
-        </div>
-      </form>
-    </div>
+    <Fragment>
+      <div className="container d-flex p-2 bd-highlight justify-content-center align-items-center">
+        <form>
+          <p className="fs-1 text-light bg-dark">
+            Check out prices all over the country
+          </p>
+          <div className="form-group my-3">
+            <select
+              className="form-control custom-select"
+              name="commodity"
+              value={commodity}
+              onChange={onChange}
+            >
+              <option defaultValue>Commodity</option>
+              {commodities.map((ele, index) => (
+                <option key={index}>{ele}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group my-3">
+            <select
+              className="form-control custom-select"
+              name="state"
+              value={state}
+              onChange={onChange}
+            >
+              <option defaultValue>State</option>
+              {states.map((ele, index) => (
+                <option key={index}>{ele.state}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group my-3">
+            {reqState === null ? (
+              <Fragment>
+                <select className="form-control custom-select">
+                  <option defaultValue>District</option>
+                </select>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <select
+                  className="form-control custom-select"
+                  name="district"
+                  value={district}
+                  onChange={onChange}
+                >
+                  <option defaultValue>District</option>
+                  {reqState.districts.map((ele, index) => (
+                    <option key={index}>{ele}</option>
+                  ))}
+                </select>
+              </Fragment>
+            )}
+          </div>
+          <div className="form-group my-3">
+            <label className="fs-3 text-info my-1">From</label>
+            <input className="form-control" type="date" name="from"></input>
+          </div>
+          <div className="form-group my-3">
+            <label className="fs-3 text-info my-1">To</label>
+            <input className="form-control" type="date" name="to"></input>
+          </div>
+          <div className="d-flex justify-content-center my-input">
+            <input type="submit" className="btn btn-success" value="Search" />
+          </div>
+        </form>
+      </div>
+    </Fragment>
   );
 };
 
-CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
+MainForm.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { createProfile })(
-  withRouter(CreateProfile)
-);
+export default MainForm;
