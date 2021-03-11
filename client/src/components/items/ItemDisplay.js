@@ -100,12 +100,12 @@ const ItemDisplay = ({
                 Available Quantity :{" "}
               </span>
               {item.quantity}
-              {" kg"}
+              {" kg/L"}
             </h4>
 
             <h4>
               <span className="font-weight-bold text-info fs-2">
-                Price (per kg) :
+                Price (per kg/L) :
               </span>
               {" Rs "}
               {item.price}
