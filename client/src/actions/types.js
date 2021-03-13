@@ -22,3 +22,5 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const GET_OFFERS = "GET_OFFERS";
 export const ADD_OFFER = "ADD_OFFER";
 export const DELETE_OFFER = "DELETE_OFFER";
+export const GET_MARKET_RESULTS = "GET_MARKET_RESULTS";
+export const RESULTS_ERROR = "RESULTS_ERROR";

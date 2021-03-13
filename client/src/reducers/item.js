@@ -89,23 +89,7 @@ function itemReducer(state = initialState, action) {
         ),
         loading: false,
       };
-    //   case ADD_COMMENT:
-    //     return {
-    //       ...state,
-    //       item: { ...state.item, comments: payload },
-    //       loading: false,
-    //     };
-    //   case REMOVE_COMMENT:
-    //     return {
-    //       ...state,
-    //       item: {
-    //         ...state.item,
-    //         comments: state.item.comments.filter(
-    //           (comment) => comment._id !== payload
-    //         ),
-    //       },
-    //       loading: false,
-    //     };
+
     default:
       return state;
   }

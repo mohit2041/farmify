@@ -15,6 +15,7 @@ import EditItem from "./components/items/EditItem";
 import ItemDisplay from "./components/items/ItemDisplay";
 import Shop from "./components/shop/Shop";
 import MainForm from "./components/market/MainForm";
+import DisplayResults from "./components/market/DisplayResults";
 import Alert from "./components/layout/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
@@ -44,6 +45,12 @@ const App = () => {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/market" component={MainForm} />
+              {/* <Route
+                exact
+                path="/market/results"
+                render={(props) => <DisplayResults {...props} />}
+              /> */}
+              <Route exact path="/market/results" component={DisplayResults} />
               <PrivateRoute
                 exact
                 path="/profile/:name/:id"

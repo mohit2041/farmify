@@ -15,6 +15,7 @@ const Login = ({ login, isAuthenticated }) => {
     email: "",
     password: "",
   });
+  let results = false;
 
   const { email, password } = formData;
 

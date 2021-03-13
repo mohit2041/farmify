@@ -1,7 +1,10 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getMarketResults } from "../../actions/market";
 
-const MainForm = (props) => {
+const MainForm = ({ getMarketResults, history }) => {
   const [formData, setFormData] = useState({
     commodity: "",
     state: "",
@@ -1020,10 +1023,26 @@ const MainForm = (props) => {
     }
   }
 
+  const submit = true;
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    getMarketResults(formData, history);
+
+    // return (
+    //   <Redirect
+    //     to={{
+    //       pathname: "market/results",
+    //       state: { commodity, states, district },
+    //     }}
+    //   />
+    // );
+  };
+
   return (
     <Fragment>
       <div className="container d-flex p-2 bd-highlight justify-content-center align-items-center">
-        <form>
+        <form onSubmit={onSubmit}>
           <p className="fs-1 text-light bg-dark">
             Check out prices all over the country
           </p>
@@ -1077,11 +1096,11 @@ const MainForm = (props) => {
             )}
           </div>
           <div className="form-group my-3">
-            <label className="fs-3 text-info my-1">From</label>
+            <label className="fs-5 text-dark my-1">From</label>
             <input className="form-control" type="date" name="from"></input>
           </div>
           <div className="form-group my-3">
-            <label className="fs-3 text-info my-1">To</label>
+            <label className="fs-5 text-dark my-1">To</label>
             <input className="form-control" type="date" name="to"></input>
           </div>
           <div className="d-flex justify-content-center my-input">
@@ -1093,6 +1112,15 @@ const MainForm = (props) => {
   );
 };
 
-MainForm.propTypes = {};
+MainForm.propTypes = {
+  getMarketResults: PropTypes.func.isRequired,
+  isFormSubmitted: PropTypes.bool.isRequired,
+};
 
-export default MainForm;
+const mapStateToProps = (state) => ({
+  isFormSubmitted: state.market.isFormSubmitted,
+});
+
+export default connect(mapStateToProps, { getMarketResults })(
+  withRouter(MainForm)
+);
