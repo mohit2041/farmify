@@ -12,8 +12,8 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
         <Link className="nav-link active" to="/market">
-          Market
-        </Link>
+          <i className="fas fa-shopping-cart"></i> Market
+        </Link>{" "}
         <Link className="nav-link active" aria-current="page" to="/shop">
           <i className="fas fa-shopping-cart"></i> Shop
         </Link>{" "}
@@ -21,7 +21,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           <i className="fas fa-user"></i> Profile
         </Link>{" "}
         <Link onClick={logout} className="nav-link active" to="/login">
-          <i className="fas fa-sign-out-alt"> </i> Logout
+          <i className="fas fa-sign-out-alt"></i> Logout
         </Link>
       </div>
     </div>
@@ -31,10 +31,10 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
         <Link className="nav-link active" to="/market">
-          Market
-        </Link>
+          <i className="fas fa-shopping-cart"></i> Market
+        </Link>{" "}
         <Link className="nav-link active" to="/login">
-          <i className="fas fa-sign-in-alt"> </i> Login
+          <i className="fas fa-sign-in-alt"></i> Login
         </Link>{" "}
         <Link className="nav-link active" to="/register">
           <i className="fas fa-user-plus"></i> Register
@@ -48,24 +48,28 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
       className="navbar fixed-top navbar-expand-lg  navbar-dark bg-dark"
       style={{ opacity: 0.8 }}
     >
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          <i className="fas fa-tractor"> </i> Farmify
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        {!loading && (
-          <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-        )}
+      <div className="d-flex justify-content-between container-fluid">
+        <div>
+          <Link className="navbar-brand" to="/">
+            <i className="fas fa-tractor"> </i> Farmify
+          </Link>
+        </div>
+        <div>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          {!loading && (
+            <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+          )}
+        </div>
       </div>
     </nav>
   );

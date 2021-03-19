@@ -5,17 +5,10 @@ import { login } from "../../actions/auth";
 import PropTypes from "prop-types";
 
 const Login = ({ login, isAuthenticated }) => {
-  //inline style class
-  const myclass = {
-    margin: "15px 0px",
-    padding: "5px 0px",
-  };
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  let results = false;
 
   const { email, password } = formData;
 
@@ -39,10 +32,10 @@ const Login = ({ login, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <div className="d-flex bd-highlight justify-content-center align-items-center">
+      <div className="d-flex bd-highlight justify-content-center align-items-center m-1">
         <form className="form" onSubmit={onSubmit}>
           <p className="fs-1 text-light bg-dark">Login to your account</p>
-          <div className="form-group" style={myclass}>
+          <div className="form-group mt-5">
             <input
               type="email"
               name="email"
@@ -52,7 +45,7 @@ const Login = ({ login, isAuthenticated }) => {
               onChange={onChange}
             />
           </div>
-          <div className="form-group" style={myclass}>
+          <div className="form-group my-4">
             <input
               type="password"
               name="password"
@@ -62,7 +55,7 @@ const Login = ({ login, isAuthenticated }) => {
               onChange={onChange}
             />
           </div>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center mt-5">
             <input type="submit" className="btn btn-success" value="Login" />
           </div>
         </form>

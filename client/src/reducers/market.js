@@ -2,7 +2,7 @@ import { GET_MARKET_RESULTS, RESULTS_ERROR } from "../actions/types";
 
 const initialState = {
   isFormSubmitted: false,
-  results: [],
+  results: null,
   error: {},
 };
 
@@ -14,7 +14,7 @@ function alertReducer(state = initialState, action) {
       return {
         ...state,
         isFormSubmitted: true,
-        results: payload,
+        results: payload.data,
       };
     case RESULTS_ERROR:
       return {

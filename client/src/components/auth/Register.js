@@ -6,12 +6,6 @@ import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
-  //inline style class
-  const myclass = {
-    margin: "15px 0px",
-    padding: "5px 0px",
-  };
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -52,7 +46,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <p className="fs-1 text-light bg-dark">
             Create your account , SignUp
           </p>
-          <div className="form-group" style={myclass}>
+          <div className="form-group my-3">
             <input
               type="text"
               name="name"
@@ -62,7 +56,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               onChange={onChange}
             />
           </div>
-          <div className="form-group" style={myclass}>
+          <div className="form-group my-3">
             <input
               type="email"
               name="email"
@@ -72,7 +66,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               onChange={onChange}
             />
           </div>
-          <div className="form-group" style={myclass}>
+          <div className="form-group my-3">
             <input
               type="password"
               name="password"
@@ -82,7 +76,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               onChange={onChange}
             />
           </div>
-          <div className="form-group" style={myclass}>
+          <div className="form-group my-3">
             <input
               type="password"
               name="password2"
@@ -92,7 +86,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               onChange={onChange}
             />
           </div>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center my-3">
             <input type="submit" className="btn btn-success" value="Register" />
             <br />
           </div>

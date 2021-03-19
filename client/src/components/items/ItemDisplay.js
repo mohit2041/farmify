@@ -31,12 +31,12 @@ const ItemDisplay = ({
   if (user !== null && item !== null && user._id === item.user) {
     offersOnItem =
       item.offers.length === 0 ? (
-        <h1 className="card-title border-bottom border-light my-5 text-center">
+        <h1 className="card-title border-bottom border-dark my-5 text-center">
           No offers on this item yet.
         </h1>
       ) : (
         <Fragment>
-          <h1 className="card-title border-bottom border-light my-5 text-center">
+          <h1 className="card-title border-bottom border-dark my-5 text-center">
             Offers made on the item
           </h1>
           <div className="row">

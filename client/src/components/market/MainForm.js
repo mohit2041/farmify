@@ -1,10 +1,16 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getMarketResults } from "../../actions/market";
+import ResultItem from "./ResultItem";
+import Spinner from "../layout/Spinner";
 
-const MainForm = ({ getMarketResults, history }) => {
+const MainForm = ({
+  getMarketResults,
+  history,
+  market: { results, isFormSubmitted, error },
+}) => {
   const [formData, setFormData] = useState({
     commodity: "",
     state: "",
@@ -1023,20 +1029,26 @@ const MainForm = ({ getMarketResults, history }) => {
     }
   }
 
-  const submit = true;
+  let total, offset;
+
+  if (results !== null) {
+    total = parseInt(results.total);
+    offset = parseInt(results.offset);
+  }
+  const nextHandler = (e) => {
+    if (total - (offset + 9) > 0) {
+      getMarketResults(formData, history, offset + 9);
+    }
+  };
+  const prevHandler = (e) => {
+    if (offset - 9 >= 0) {
+      getMarketResults(formData, history, offset - 9);
+    }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
     getMarketResults(formData, history);
-
-    // return (
-    //   <Redirect
-    //     to={{
-    //       pathname: "market/results",
-    //       state: { commodity, states, district },
-    //     }}
-    //   />
-    // );
   };
 
   return (
@@ -1095,30 +1107,78 @@ const MainForm = ({ getMarketResults, history }) => {
               </Fragment>
             )}
           </div>
-          <div className="form-group my-3">
+          {/* <div className="form-group my-3">
             <label className="fs-5 text-dark my-1">From</label>
             <input className="form-control" type="date" name="from"></input>
           </div>
           <div className="form-group my-3">
             <label className="fs-5 text-dark my-1">To</label>
             <input className="form-control" type="date" name="to"></input>
-          </div>
+          </div> */}
           <div className="d-flex justify-content-center my-input">
             <input type="submit" className="btn btn-success" value="Search" />
           </div>
         </form>
       </div>
+      <Fragment>
+        {isFormSubmitted === false ? (
+          <Spinner />
+        ) : (
+          <Fragment>
+            {results !== null && results.records && (
+              <Fragment>
+                {results.records.length === 0 ? (
+                  <div className="text-center mt-5">
+                    <h1 className="border-bottom border-dark">No data found</h1>
+                  </div>
+                ) : (
+                  <Fragment>
+                    <div className="container">
+                      <div className="text-center my-5">
+                        <h1 className="border-bottom border-dark">Data list</h1>
+                      </div>
+                      <div className="row">
+                        {results.records.map((result, index) => (
+                          <ResultItem key={index} result={result} />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="container d-flex justify-content-center mt-3">
+                      {offset - 9 >= 0 && (
+                        <button
+                          className="btn btn-success mx-3"
+                          onClick={prevHandler}
+                        >
+                          Previous
+                        </button>
+                      )}
+                      {total - (offset + 9) > 0 && (
+                        <button
+                          className="btn btn-success mx-3"
+                          onClick={nextHandler}
+                        >
+                          Next
+                        </button>
+                      )}
+                    </div>
+                  </Fragment>
+                )}
+              </Fragment>
+            )}
+          </Fragment>
+        )}
+      </Fragment>
     </Fragment>
   );
 };
 
 MainForm.propTypes = {
   getMarketResults: PropTypes.func.isRequired,
-  isFormSubmitted: PropTypes.bool.isRequired,
+  market: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isFormSubmitted: state.market.isFormSubmitted,
+  market: state.market,
 });
 
 export default connect(mapStateToProps, { getMarketResults })(

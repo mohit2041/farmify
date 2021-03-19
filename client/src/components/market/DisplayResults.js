@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -6,20 +6,30 @@ import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import ResultItem from "./ResultItem";
 
-const DisplayResults = ({ market: { results } }) => {
+const DisplayResults = ({ market: { results, isFormSubmitted } }) => {
   return (
     <Fragment>
-      {results.length === 0 ? (
+      {isFormSubmitted === false ? (
         <Spinner />
       ) : (
         <Fragment>
-          <div className="container">
-            <div className="row">
-              {results.map((result, index) => (
-                <ResultItem key={index} result={result} />
-              ))}
-            </div>
-          </div>
+          {results !== null && results.records.length === 0 ? (
+            <div>No data found</div>
+          ) : (
+            <Fragment>
+              <div className="container">
+                <div className="row">
+                  {results.records.map((result, index) => (
+                    <ResultItem key={index} result={result} />
+                  ))}
+                </div>
+              </div>
+              <div className="container d-flex justify-content-center mt-3">
+                <button className="btn btn-success mx-3">Previous</button>
+                <button className="btn btn-success mx-3">Next</button>
+              </div>
+            </Fragment>
+          )}
         </Fragment>
       )}
     </Fragment>
