@@ -1037,18 +1037,18 @@ const MainForm = ({
   }
   const nextHandler = (e) => {
     if (total - (offset + 9) > 0) {
-      getMarketResults(formData, history, offset + 9);
+      getMarketResults(formData, offset + 9);
     }
   };
   const prevHandler = (e) => {
     if (offset - 9 >= 0) {
-      getMarketResults(formData, history, offset - 9);
+      getMarketResults(formData, offset - 9);
     }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    getMarketResults(formData, history);
+    getMarketResults(formData);
   };
 
   return (

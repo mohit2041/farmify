@@ -81,7 +81,9 @@ router.get("/", auth, async (req, res) => {
   try {
     const items = await Item.find()
       .populate("offers.user", ["name", "avatar"])
-      .sort({ date: -1 });
+      .sort({ date: -1 })
+      .limit(9)
+      .skip(parseInt(req.query.offset));
     res.json(items);
   } catch (err) {
     console.error(err.message);
