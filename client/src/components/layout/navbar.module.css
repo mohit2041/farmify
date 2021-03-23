@@ -1,0 +1,38 @@
+/* :root {
+  --desktop: 1200px;
+  --laptop: 1024px;
+  --tablet: 768px;
+  --phone: 480px;
+} */
+div a {
+  font-size: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+/* for mobiles */
+@media (max-width: 480px) {
+  div a {
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 10px;
+  }
+}
+/* for tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  div a {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+  }
+}
+/* fot laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  div a {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+  }
+}
