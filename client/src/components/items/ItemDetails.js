@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import classes from "./item.module.css";
 
 const ItemDetails = ({ item }) => {
   return (
@@ -12,22 +13,20 @@ const ItemDetails = ({ item }) => {
           </Link>
         </div>
         <h5>
-          <span className="font-weight-bold text-info fs-4">Category : </span>
+          <span className="font-weight-bold text-info ">Category : </span>
           {item.category}
         </h5>
         <h4>{item.subcategory}</h4>
       </div>
       <div className="card-body">
         <h5>
-          <span className="font-weight-bold text-info fs-4">Quantity : </span>
+          <span className="font-weight-bold text-info">Quantity : </span>
           {item.quantity}
           {" kg/L"}
         </h5>
 
         <h5>
-          <span className="font-weight-bold text-info fs-4">
-            Price (per kg/L) :
-          </span>
+          <span className="font-weight-bold text-info">Price (per kg/L) :</span>
           {" Rs "}
           {item.price}
         </h5>
