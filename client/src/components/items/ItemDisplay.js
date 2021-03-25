@@ -6,6 +6,7 @@ import { getItem, addView, deleteItem, getUserOffer } from "../../actions/item";
 import Spinner from "../layout/Spinner";
 import Offer from "./Offer";
 import ItemOffer from "./ItemOffer";
+import classes from "./itemDisplay.module.css";
 
 const ItemDisplay = ({
   getItem,
@@ -70,13 +71,13 @@ const ItemDisplay = ({
             </div>
           )}
           <h4>
-            <span className="font-weight-bold text-info fs-2">
+            <span className="font-weight-bold text-info">
               Commodity Category :{" "}
             </span>
             {item.category}
           </h4>
           <h4>
-            <span className="font-weight-bold text-info fs-2">
+            <span className="font-weight-bold text-info">
               Commodity Subcategory :{" "}
             </span>
             {item.subcategory}
@@ -89,14 +90,14 @@ const ItemDisplay = ({
               Other Details
             </h1>
             <h4>
-              <span className="font-weight-bold text-info fs-2">
+              <span className="font-weight-bold text-info">
                 Quality Description :{" "}
               </span>
               {item.quality}
             </h4>
 
             <h4>
-              <span className="font-weight-bold text-info fs-2">
+              <span className="font-weight-bold text-info">
                 Available Quantity :{" "}
               </span>
               {item.quantity}
@@ -104,7 +105,7 @@ const ItemDisplay = ({
             </h4>
 
             <h4>
-              <span className="font-weight-bold text-info fs-2">
+              <span className="font-weight-bold text-info">
                 Price (per kg/L) :
               </span>
               {" Rs "}

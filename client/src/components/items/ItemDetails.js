@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import classes from "./item.module.css";
+import classes from "./itemDetails.module.css";
 
 const ItemDetails = ({ item }) => {
   return (
