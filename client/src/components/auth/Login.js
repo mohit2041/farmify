@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 import PropTypes from "prop-types";
+import classes from "../../global-css/global.module.css";
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,9 @@ const Login = ({ login, isAuthenticated }) => {
     <Fragment>
       <div className="d-flex bd-highlight justify-content-center align-items-center m-1">
         <form className="form" onSubmit={onSubmit}>
-          <p className="fs-1 text-light bg-dark">Login to your account</p>
+          <p className={"text-light bg-dark text-center " + classes.myHeading}>
+            Login to your account
+          </p>
           <div className="form-group mt-5">
             <input
               type="email"

@@ -7,6 +7,7 @@ import { getUserItems, getOfferItems } from "../../actions/item";
 import Spinner from "../layout/Spinner";
 import ProfileItem from "./ProfileItem";
 import Item from "../items/Item";
+import classes from "./profile.module.css";
 
 const Profile = ({
   profile: { loading, profile },
@@ -49,13 +50,10 @@ const Profile = ({
             <div>
               {match.params.id === user._id && (
                 <div className="m-3">
-                  <Link to="/edit-profile" className="btn btn-primary mx-3">
+                  <Link to="/edit-profile" className={classes.myLink}>
                     Edit Account
                   </Link>
-                  <button
-                    className="btn btn-danger mx-3"
-                    onClick={deleteAccount}
-                  >
+                  <button className={classes.myButton} onClick={deleteAccount}>
                     Delete Account
                   </button>
                 </div>
@@ -69,13 +67,10 @@ const Profile = ({
               </p>
               {match.params.id === user._id && (
                 <div className="m-2">
-                  <Link to="/create-profile" className="btn btn-primary mx-3">
+                  <Link to="/create-profile" className={classes.myLink}>
                     Create Profile
                   </Link>
-                  <button
-                    className="btn btn-danger mx-3"
-                    onClick={deleteAccount}
-                  >
+                  <button className={classes.myButton} onClick={deleteAccount}>
                     Delete Account
                   </button>
                 </div>

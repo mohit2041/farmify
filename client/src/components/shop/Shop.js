@@ -4,6 +4,7 @@ import Items from "../items/Items";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getItems } from "../../actions/item";
+import classes from "./shop.module.css";
 
 const Shop = ({ getItems, item: { items } }) => {
   useEffect(() => {
@@ -41,10 +42,7 @@ const Shop = ({ getItems, item: { items } }) => {
       <div className="container">
         <div className="container d-flex justify-content-between mb-5">
           <div>
-            <Link
-              to="/create-item"
-              className="btn btn-primary border border-dark"
-            >
+            <Link to="/create-item" className={classes.myLink}>
               Sell
             </Link>
           </div>
@@ -53,7 +51,7 @@ const Shop = ({ getItems, item: { items } }) => {
             <input
               type="text"
               placeholder="Search for sub/category,seller etc."
-              className="form-control form-control-lg border border-red"
+              className={"form-control " + classes.myInput}
               name="query"
               value={query}
               onChange={onChange}

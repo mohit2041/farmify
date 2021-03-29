@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
 import { withRouter } from "react-router-dom";
 import Spinner from "../layout/Spinner";
+import classes from "../../global-css/global.module.css";
 
 const CreateProfile = ({
   createProfile,
@@ -938,8 +939,8 @@ const CreateProfile = ({
     <Fragment>
       <div className="d-flex bd-highlight justify-content-center align-items-center">
         <form onSubmit={onSubmit}>
-          <p className="fs-3 text-light bg-dark">
-            ------- * Fields are compulsory-------{" "}
+          <p className={"text-light bg-dark " + classes.myHeading}>
+            ----------* Fields are compulsory ----------{" "}
           </p>
           <div className="form-group my-3">
             <input

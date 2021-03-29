@@ -1,0 +1,13 @@
+.myHeading {
+  font-size: 30px;
+}
+@media (max-width: 480px) {
+  .myHeading {
+    font-size: 15px;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .myHeading {
+    font-size: 25px;
+  }
+}

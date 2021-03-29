@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getItem, editItem } from "../../actions/item";
 import Spinner from "../layout/Spinner";
+import classes from "../../global-css/global.module.css";
 
 const EditItem = ({ editItem, getItem, item: { loading, item }, match }) => {
   const [formData, setFormData] = useState({
@@ -151,8 +152,8 @@ const EditItem = ({ editItem, getItem, item: { loading, item }, match }) => {
   ) : (
     <div className="d-flex bd-highlight justify-content-center align-items-center">
       <form onSubmit={onSubmit}>
-        <p className="fs-3 text-light bg-dark">
-          -------* Fields are compulsory -------{" "}
+        <p className={"text-light bg-dark " + classes.myHeading}>
+          ----------* Fields are compulsory ----------{" "}
         </p>
         <div className="form-group my-3">
           <select

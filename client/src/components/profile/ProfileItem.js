@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import classes from "./profileItem.module.css";
 
 const ProfileItem = ({ profile }) => {
   return (
-    <Fragment>
+    <div className={classes.myMargin}>
       <h4>
         <span className="p-2 font-weight-bold text-info">Mobile number : </span>
         {profile.mobile}
@@ -36,7 +37,7 @@ const ProfileItem = ({ profile }) => {
           {profile.address}
         </h4>
       )}
-    </Fragment>
+    </div>
   );
 };
 

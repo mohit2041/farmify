@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
+import classes from "../../global-css/global.module.css";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -43,7 +44,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     <Fragment>
       <div className="d-flex bd-highlight justify-content-center align-items-center">
         <form className="form" onSubmit={onSubmit}>
-          <p className="fs-1 text-light bg-dark">
+          <p className={"text-light bg-dark text-center " + classes.myHeading}>
             Create your account , SignUp
           </p>
           <div className="form-group my-3">

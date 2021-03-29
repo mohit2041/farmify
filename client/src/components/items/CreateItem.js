@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { addItem } from "../../actions/item";
+import classes from "../../global-css/global.module.css";
 
 const CreateItem = ({ addItem, history }) => {
   const [formData, setFormData] = useState({
@@ -136,8 +137,8 @@ const CreateItem = ({ addItem, history }) => {
   return (
     <div className="d-flex bd-highlight justify-content-center align-items-center">
       <form onSubmit={onSubmit}>
-        <p className="fs-3 text-light bg-dark">
-          -------* Fields are compulsory -------{" "}
+        <p className={"text-light bg-dark " + classes.myHeading}>
+          ----------* Fields are compulsory ----------{" "}
         </p>
         <div className="form-group my-3">
           <select
