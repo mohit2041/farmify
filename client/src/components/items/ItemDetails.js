@@ -8,7 +8,10 @@ const ItemDetails = ({ item }) => {
     <Fragment>
       <div className="card-header bg-transparent border-success">
         <div className="my-2">
-          <Link to={`/item/${item._id}`} className="btn btn-primary">
+          <Link
+            to={`/item/${item._id}`}
+            className="btn btn-primary border border-light"
+          >
             View Item
           </Link>
         </div>

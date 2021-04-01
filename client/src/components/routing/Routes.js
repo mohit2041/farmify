@@ -15,6 +15,7 @@ import Shop from "../shop/Shop";
 import MainForm from "../market/MainForm";
 import DisplayResults from "../market/DisplayResults";
 import Alert from "../layout/Alert";
+import NotFound from "../layout/NotFound";
 
 const Routes = (props) => {
   return (
@@ -32,6 +33,7 @@ const Routes = (props) => {
         <PrivateRoute exact path="/item/:id" component={ItemDisplay} />
         <PrivateRoute exact path="/create-profile" component={CreateProfile} />
         <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+        <Route component={NotFound} />
       </Switch>
     </section>
   );

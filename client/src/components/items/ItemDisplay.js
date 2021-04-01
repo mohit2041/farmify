@@ -57,11 +57,14 @@ const ItemDisplay = ({
         <div className="card-header">
           {loading === false && user._id === item.user && (
             <div className="my-4">
-              <Link to={`/edit-item/${item._id}`} className="btn btn-primary">
+              <Link
+                to={`/edit-item/${item._id}`}
+                className="btn btn-primary border border-dark"
+              >
                 Edit
               </Link>
               <button
-                className="btn btn-danger mx-3"
+                className="btn btn-danger mx-3 border border-dark"
                 onClick={() =>
                   deleteItem(match.params.id, user._id, user.name, history)
                 }

@@ -30,9 +30,7 @@ const Offer = ({ user, item, offer, addOffer, deleteOffer }) => {
     sellerInfo = (
       <div className="my-4">
         <h1 className="card-title border-bottom border-light">Seller</h1>
-        <span className="font-weight-bold text-info fs-2">
-          Link to Profile :{" "}
-        </span>
+        <span className="font-weight-bold text-info">Link to Profile : </span>
         <Link
           to={`/profile/${item.seller}/${item.user}`}
           className="btn btn-primary mx-2 border border-light"
@@ -50,15 +48,11 @@ const Offer = ({ user, item, offer, addOffer, deleteOffer }) => {
             You've already made an offer
           </h1>
           <h4>
-            <span className="font-weight-bold text-info fs-2">
-              Offer Price :
-            </span>
+            <span className="font-weight-bold text-info">Offer Price :</span>
             {" Rs "} {offer.offerPrice}
           </h4>
           <h4>
-            <span className="font-weight-bold text-info fs-2">
-              Offered on :{" "}
-            </span>
+            <span className="font-weight-bold text-info">Offered on : </span>
             {formatDate(offer.offerDate)}
           </h4>
           <button

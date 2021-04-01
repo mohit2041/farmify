@@ -4,13 +4,13 @@
   color: black;
   background-color: #cb8ae3;
   border-radius: 5px;
-  border: 2px solid white;
+  border: 1px solid white;
 }
 .myInput {
   font-size: 25px;
   padding: 5px;
   border-radius: 6px;
-  border: 2px solid #cb8ae3;
+  border: 1px solid #cb8ae3;
 }
 
 @media (max-width: 480px) {
